@@ -1,0 +1,43 @@
+{:aliases
+ {:next {:override-deps {org.clojure/clojure {:mvn/version "1.11.0-master-SNAPSHOT"}}}
+
+  :fig {:jvm-opts ["-Dclojure.server.repl={:port,55556,:accept,clojure.core.server/io-prepl}"]
+        :main-opts ["-m" "figwheel.main" "-b" "dev" "-r"]}
+
+  :socket {:jvm-opts ["-Dclojure.server.repl={:port,44444,:accept,clojure.core.server/repl}"]}
+
+  :add-libs {:extra-deps {org.clojure/tools.deps.alpha {:git/url "https://github.com/clojure/tools.deps.alpha"
+                                                        :sha "241cd24c35ba770aea4773ea161d45276e5d3a73"}}}
+
+  :base {:extra-deps {local-base/local-base {:local/root "/home/david/.clojure/libs/local.base" :deps/manifest :deps}}}
+
+  :local-dev {:extra-deps {local-dev/local-dev {:local/root "/home/david/.clojure/libs/local.dev" :deps/manifest :deps}}
+              :main-opts ["-m" "local.dev.main"]}
+
+  :eastwood {:extra-deps {jonase/eastwood {:mvn/version "0.5.2"}}
+             :main-opts ["-m" "eastwood.lint" "{:source-paths,[\"src\"]}"]}
+
+  :install {:extra-deps {slipset/deps-deploy {:mvn/version "0.1.5"}}
+            :main-opts ["-m" "deps-deploy.deps-deploy" "install"]}
+
+  :deploy {:extra-deps {slipset/deps-deploy {:mvn/version "0.1.5"}}
+           :main-opts ["-m" "deps-deploy.deps-deploy" "deploy"]}
+
+  :antq {:replace-deps {org.slf4j/slf4j-nop {:mvn/version "1.7.31"}
+                        com.github.liquidz/antq {:mvn/version "0.15.3"}}
+         :main-opts ["-m" "antq.core"
+                     "--skip" "pom"
+                     "--upgrade"
+                     "--force"]}
+
+  :graph {:extra-deps {org.clojure/tools.deps.graph {:mvn/version "1.0.63"}}
+          :main-opts ["-m" "clojure.tools.deps.graph"]}
+
+  :reveal {:extra-deps {vlaaad/reveal {:mvn/version "1.3.209"}}
+           :ns-default vlaaad.reveal
+           :exec-fn repl}
+
+  :portal {:extra-deps {djblue/portal {:mvn/version "0.12.0"}}}}
+
+ :mvn/repos {"nexus" {:url "http://nexus/repository/maven-public"}
+             "clojars" {:url "http://nexus/repository/clojars"}}}
