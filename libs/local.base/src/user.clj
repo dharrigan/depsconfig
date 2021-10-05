@@ -76,6 +76,10 @@
  (add-tap (bound-fn* (resolve 'puget/cprint)))
  (catch Throwable _))
 
+(try
+ (require '[dev])
+ (catch Throwable _))
+
 ;; Useful functions to be loaded in for all projects
 
 ;;
