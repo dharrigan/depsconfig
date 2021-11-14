@@ -7,10 +7,9 @@
    [io.aviso.ansi :as ansi]
    [nrepl.server :as nrepl]
    [rebel-readline.clojure.line-reader :as clj-line-reader]
-   rebel-readline.clojure.main
-   rebel-readline.core
-   [rebel-readline.jline-api :as api]
-   [refactor-nrepl.middleware]))
+   [rebel-readline.clojure.main :as rebel-main]
+   [rebel-readline.core :as rebel-core]
+   [rebel-readline.jline-api :as api]))
 
 (defn ^:private syntax-highlight-fipp
   [x]
@@ -24,8 +23,7 @@
   (let [server-map (nrepl/start-server
                     :port (or env-port 0)
                     :handler (apply nrepl.server/default-handler
-                                    (-> (map #'cider.nrepl/resolve-or-fail cider.nrepl/cider-middleware)
-                                        (conj #'refactor-nrepl.middleware/wrap-refactor))))
+                                    (map #'cider.nrepl/resolve-or-fail cider.nrepl/cider-middleware)))
         port (:port server-map)
         port-file (io/file ".nrepl-port")]
     (.deleteOnExit port-file)
@@ -36,7 +34,7 @@
   [& _]
   (start-nrepl (some-> (System/getenv "NREPL_PORT")
                        (Integer/parseInt)))
-  (rebel-readline.core/ensure-terminal
-   (rebel-readline.clojure.main/repl :print syntax-highlight-fipp))
+  (rebel-core/ensure-terminal
+   (rebel-main/repl :print syntax-highlight-fipp))
   (println (ansi/green "Goodbye!"))
   (System/exit 0))

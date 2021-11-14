@@ -1,6 +1,6 @@
 {:paths ["src"]
 
- :deps {cider/cider-nrepl {:mvn/version "0.27.1"}
+ :deps {cider/cider-nrepl {:mvn/version "0.27.2"}
         ;; exlude transitives (google-closure-library) that brings in a version of protobuf that fucks me up
         com.bhauman/rebel-readline {:mvn/version "0.1.4" :exclusions [org.clojure/google-closure-library
                                                                       rewrite-cljs/rewrite-cljs]}
@@ -8,4 +8,4 @@
         hashp/hashp {:mvn/version "0.2.1"}
         io.aviso/pretty {:mvn/version "1.1"}
         nrepl/nrepl {:mvn/version "0.8.3"}
-        refactor-nrepl/refactor-nrepl {:mvn/version "3.0.0-pr301"}}}
+        refactor-nrepl/refactor-nrepl {:mvn/version "3.1.0"}}}
