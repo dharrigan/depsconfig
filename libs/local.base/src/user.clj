@@ -8,7 +8,10 @@
     [clojure.pprint :as pprint :refer [pp pprint]]
     [clojure.stacktrace :as stacktrace :refer [e]]
     [clojure.set :as set]
-    [clojure.string :as str]])
+    [clojure.string :as str]
+    [[puget.printer :as puget :refer (cprint)] (add-tap (bound-fn* (resolve 'puget/cprint)))]
+    [[kaocha.repl :as k]]
+    [dev]])
 
 (def lazy-safe-requires
   "List of namespaces to require lazily, by creating a function which
@@ -65,43 +68,28 @@
 
 (def-lazy-requiring-fns)
 
-#_:clj-kondo/ignore
-(try
- (require '[kaocha.repl :as k])
- (catch Throwable _))
-
-#_:clj-kondo/ignore
-(try
- (require '[puget.printer :as puget])
- (add-tap (bound-fn* (resolve 'puget/cprint)))
- (catch Throwable _))
-
-(try
- (require '[dev])
- (catch Throwable _))
-
 ;; Useful functions to be loaded in for all projects
 
 ;;
 ;; Ensure we have a DynamicClassLoader, in case we want to use add-libs from
 ;; the add-lib3 branch of clojure.tools.deps.alpha (to) load new libraries at runtime
 ;;
-(try
- (->> (Thread/currentThread)
-      (.getContextClassLoader)
-      (clojure.lang.DynamicClassLoader.)
-      (.setContextClassLoader (Thread/currentThread)))
- (catch Throwable t
-   (println "Unable to establish a DynamicClassLoader!")
-   (println (ex-message t))))
+;(try
+; (->> (Thread/currentThread)
+;      (.getContextClassLoader)
+;      (clojure.lang.DynamicClassLoader.)
+;      (.setContextClassLoader (Thread/currentThread)))
+; (catch Throwable t
+;   (println "Unable to establish a DynamicClassLoader!")
+;   (println (ex-message t))))
 
 ;;
 ;; Bridge/route all JUL log records to the SLF4J API.
 ;;
-(try
- (Class/forName "org.slf4j.bridge.SLF4JBridgeHandler")
- (eval
-  `(do
-    (org.slf4j.bridge.SLF4JBridgeHandler/removeHandlersForRootLogger)
-    (org.slf4j.bridge.SLF4JBridgeHandler/install)))
- (catch Throwable _))
+;(try
+; (Class/forName "org.slf4j.bridge.SLF4JBridgeHandler")
+; (eval
+;  `(do
+;    (org.slf4j.bridge.SLF4JBridgeHandler/removeHandlersForRootLogger)
+;    (org.slf4j.bridge.SLF4JBridgeHandler/install)))
+; (catch Throwable _))

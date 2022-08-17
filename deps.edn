@@ -1,16 +1,14 @@
 {:aliases
- {:next {:override-deps {org.clojure/clojure {:mvn/version "1.11.0-master-SNAPSHOT"}}}
+ {:next {:override-deps {org.clojure/clojure {:mvn/version "1.11.1"}}}
 
   :fig {:jvm-opts ["-Dclojure.server.repl={:port,55556,:accept,clojure.core.server/io-prepl}"]
         :main-opts ["-m" "figwheel.main" "-b" "dev" "-r"]}
 
-  :socket {:jvm-opts ["-Dclojure.server.repl={:port,44444,:accept,clojure.core.server/repl}"]}
+  :add-libs {:extra-deps {org.clojure/tools.deps.alpha {:mvn/version "0.14.1222"}}}
 
-  :add-libs {:extra-deps {org.clojure/tools.deps.alpha {:mvn/version "0.12.1063"}}}
+  :base {:extra-deps {local-base/local-base {:local/root "/home/david/.clojure/libs/local.base"}}}
 
-  :base {:extra-deps {local-base/local-base {:local/root "/home/david/.clojure/libs/local.base" :deps/manifest :deps}}}
-
-  :local-dev {:extra-deps {local-dev/local-dev {:local/root "/home/david/.clojure/libs/local.dev" :deps/manifest :deps}}
+  :local-dev {:extra-deps {local-dev/local-dev {:local/root "/home/david/.clojure/libs/local.dev"}}
               :main-opts ["-m" "local.dev.main"]}
 
   :install {:extra-deps {slipset/deps-deploy {:mvn/version "0.2.0"}}
@@ -19,35 +17,41 @@
   :deploy {:extra-deps {slipset/deps-deploy {:mvn/version "0.2.0"}}
            :main-opts ["-m" "deps-deploy.deps-deploy" "deploy"]}
 
-  :antq {:replace-deps {org.slf4j/slf4j-nop {:mvn/version "1.7.32"}
-                        com.github.liquidz/antq {:mvn/version "1.2.0"}}
-         :main-opts ["-m" "antq.core"
-                     "--exclude" "org.clojure/tools.deps.alpha" ;; we want to keep the specific hash, as it includes the add-libs branch
-                     "--skip" "pom"
-                     "--skip" "leiningen"
-                     "--upgrade"
-                     "--force"]}
+  :antq {:replace-paths ["."]
+         :replace-deps {com.github.liquidz/antq {:mvn/version "2.0.889"}
+                        org.slf4j/slf4j-nop {:mvn/version "1.7.36"}}
+         :exec-fn antq.tool/outdated
+         :exec-args {:directory ["."]
+                     :skip ["pom" "boot" "leiningen"]
+                     :verbose true
+                     :upgrade true
+                     :download true
+                     :no-diff true
+                     :force true}}
 
-  :graph {:extra-deps {org.clojure/tools.deps.graph {:mvn/version "1.0.63"}}
+  :graph {:extra-deps {org.clojure/tools.deps.graph {:mvn/version "1.1.68"}}
           :main-opts ["-m" "clojure.tools.deps.graph"]}
 
-  :reveal {:extra-deps {vlaaad/reveal {:mvn/version "1.3.226"}}
+  :reveal {:extra-deps {vlaaad/reveal {:mvn/version "1.3.274"}}
            :ns-default vlaaad.reveal
            :exec-fn repl}
 
-  :portal {:extra-deps {djblue/portal {:mvn/version "0.18.0"}}}
+  :portal {:extra-deps {djblue/portal {:mvn/version "0.29.1"}}}
 
-  :new {:extra-deps {com.github.seancorfield/clj-new {:mvn/version "1.2.362"}}
-        :exec-fn clj-new/create
-        :exec-args {:template "app"}}
+  :depify {:extra-deps {depify/depify {:git/url "https://github.com/hagmonk/depify"
+                                       :sha     "b3f61517c860518c1990133aa6eb54caf1e4d591"}}
+           :main-opts  ["-m" "depify.project"]}
 
-  :deps-new {:extra-deps {com.github.seancorfield/deps-new {:git/tag "v0.4.2"
-                                                            :git/sha "1ec7e626e1d1ac80ec6fa33b0d1ba8ca9fe279ac"}
+  :deps-new {:extra-deps {com.github.seancorfield/deps-new {:git/tag "v0.4.13"
+                                                            :git/sha "879c4eb50df92fcd8c11423c2081e00998d7b613"}
                           clj-template/clj-template {:local/root "/home/david/development/clojure/clj-template"}}
              :exec-fn org.corfield.new/create
              :exec-args {:template "online.harrigan/clj-template"
                          :overwrite :delete
-                         :main "main"}}}
+                         :main "main"}}
+
+  :flow-storm {:extra-deps {com.github.jpmonettas/flow-storm-dbg {:mvn/version "2.3.141"}
+                            com.github.jpmonettas/flow-storm-inst {:mvn/version "2.3.141"}}}}
 
  :mvn/repos {"central" {:url "http://nexus/repository/maven-public"}
              "nexus" {:url "http://nexus/repository/maven-public"}

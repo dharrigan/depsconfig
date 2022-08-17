@@ -3,7 +3,6 @@
    [cider.nrepl]
    [clojure.java.io :as io]
    [fipp.edn :as fipp]
-   hashp.core
    [io.aviso.ansi :as ansi]
    [nrepl.server :as nrepl]
    [rebel-readline.clojure.line-reader :as clj-line-reader]
