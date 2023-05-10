@@ -1,25 +1,20 @@
 {:aliases
  {:next {:override-deps {org.clojure/clojure {:mvn/version "1.11.1"}}}
 
-  :fig {:jvm-opts ["-Dclojure.server.repl={:port,55556,:accept,clojure.core.server/io-prepl}"]
-        :main-opts ["-m" "figwheel.main" "-b" "dev" "-r"]}
-
-  :add-libs {:extra-deps {org.clojure/tools.deps.alpha {:mvn/version "0.15.1254"}}}
-
   :base {:extra-deps {local-base/local-base {:local/root "/home/david/.clojure/libs/local.base"}}}
 
   :local-dev {:extra-deps {local-dev/local-dev {:local/root "/home/david/.clojure/libs/local.dev"}}
               :main-opts ["-m" "local.dev.main"]}
 
-  :install {:extra-deps {slipset/deps-deploy {:mvn/version "0.2.0"}}
+  :install {:extra-deps {slipset/deps-deploy {:mvn/version "0.2.1"}}
             :main-opts ["-m" "deps-deploy.deps-deploy" "install"]}
 
-  :deploy {:extra-deps {slipset/deps-deploy {:mvn/version "0.2.0"}}
+  :deploy {:extra-deps {slipset/deps-deploy {:mvn/version "0.2.1"}}
            :main-opts ["-m" "deps-deploy.deps-deploy" "deploy"]}
 
   :antq {:replace-paths ["."]
-         :replace-deps {com.github.liquidz/antq {:mvn/version "2.2.962"}
-                        org.slf4j/slf4j-nop {:mvn/version "2.0.5"}}
+         :replace-deps {com.github.liquidz/antq {:mvn/version "2.4.1070"}
+                        org.slf4j/slf4j-nop {:mvn/version "2.0.7"}}
          :exec-fn antq.tool/outdated
          :exec-args {:download true
                      :force true
@@ -28,30 +23,37 @@
                      :upgrade true
                      :verbose true}}
 
-  :graph {:extra-deps {org.clojure/tools.deps.graph {:mvn/version "1.1.68"}}
+  :carve {:extra-deps {io.github.borkdue/carve {:git/url "https://github.com/borkdude/carve"
+                                                :git/sha "14a3a5db4b372e33d20763a8d1344bddae72c735"}}
+          :main-opts ["-m" "carve.main"]}
+
+  :graph {:extra-deps {org.clojure/tools.deps.graph {:mvn/version "1.1.76"}}
           :main-opts ["-m" "clojure.tools.deps.graph"]}
 
-  :reveal {:extra-deps {vlaaad/reveal {:mvn/version "1.3.276"}}
+  :reveal {:extra-deps {vlaaad/reveal {:mvn/version "1.3.280"}}
            :ns-default vlaaad.reveal
            :exec-fn repl}
 
-  :portal {:extra-deps {djblue/portal {:mvn/version "0.34.2"}}}
+  :portal {:extra-deps {djblue/portal {:mvn/version "0.40.0"}}}
+
+  :tab {:extra-deps {io.github.eerohele/tab {:git/url "https://github.com/eerohele/tab.git"
+                                             :git/sha "5813c864b3df6579c5c076182329ea6e593bce3a"}}}
 
   :depify {:extra-deps {depify/depify {:git/url "https://github.com/hagmonk/depify"
                                        :sha     "b3f61517c860518c1990133aa6eb54caf1e4d591"}}
            :main-opts  ["-m" "depify.project"]}
 
-  :deps-new {:extra-deps {com.github.seancorfield/deps-new {:git/tag "v0.4.13"
-                                                            :git/sha "879c4eb50df92fcd8c11423c2081e00998d7b613"}
+  :deps-new {:extra-deps {com.github.seancorfield/deps-new {:git/tag "v0.5.2"
+                                                            :git/sha "253f32af67a87bc4f6d7f60e2a7353ca220a9d81"}
                           clj-template/clj-template {:local/root "/home/david/development/clojure/clj-template"}}
              :exec-fn org.corfield.new/create
              :exec-args {:template "online.harrigan/clj-template"
                          :overwrite :delete
                          :main "main"}}
 
-  :flow-storm {:extra-deps {com.github.jpmonettas/flow-storm-dbg {:mvn/version "3.2.283"}
-                            com.github.jpmonettas/flow-storm-inst {:mvn/version "3.2.283"}}}}
+  :flow-storm {:extra-deps {com.github.jpmonettas/flow-storm-dbg {:mvn/version "3.5.1"}
+                            com.github.jpmonettas/flow-storm-inst {:mvn/version "3.5.1"}}}}
 
- :mvn/repos {"central" {:url "http://nexus/repository/maven-public"}
-             "nexus" {:url "http://nexus/repository/maven-public"}
-             "clojars" {:url "http://nexus/repository/clojars"}}}
+ :mvn/repos {"central" {:url "https://nexus.harrigan.online/repository/maven-public"}
+             "clojars" {:url "https://nexus.harrigan.online/repository/maven-public"}
+             "nexus" {:url "https://nexus.harrigan.online/repository/maven-public"}}}

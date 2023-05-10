@@ -3,14 +3,17 @@
    Can be given an initialization body to execute after having been required.
    To do so, wrap the lib spec in a vector, and all elements after the lib
    spec vector will be evaled after the lib spec has been required."
-  '[[clojure.repl :as repl :refer [source apropos dir pst doc find-doc]]
-    [clojure.java.javadoc :as javadoc :refer [javadoc]]
+  '[[clojure.java.javadoc :as javadoc :refer [javadoc]]
     [clojure.pprint :as pprint :refer [pp pprint]]
-    [clojure.stacktrace :as stacktrace :refer [e]]
+    [clojure.repl :as repl :refer [source apropos dir pst doc find-doc]]
     [clojure.set :as set]
+    [clojure.stacktrace :as stacktrace :refer [e]]
     [clojure.string :as str]
+    [flow-storm.api :as fs-api]
+    [portal.api :as p]
+    [kaocha.repl :as k]
+    [tab.api :as tab]
     [[puget.printer :as puget :refer (cprint)] (add-tap (bound-fn* (resolve 'puget/cprint)))]
-    [[kaocha.repl :as k]]
     [dev]])
 
 (def lazy-safe-requires
@@ -21,10 +24,10 @@
    requires. Lib spec can be a safe-require with an init body if wrapped
    in a vector themselves."
   '[[async [clojure.core.async :as async]]
-    [logic [clojure.core.logic :as logic]]
-    [reducers [clojure.core.reducers :as reducers]]
     [edn [clojure.edn :as edn]]
     [inspector [clojure.inspector :as inspector]]
+    [logic [clojure.core.logic :as logic]]
+    [reducers [clojure.core.reducers :as reducers]]
     [reflect [clojure.reflect :as reflect]]
     [spec
      [clojure.spec.alpha :as s]
@@ -69,19 +72,6 @@
 (def-lazy-requiring-fns)
 
 ;; Useful functions to be loaded in for all projects
-
-;;
-;; Ensure we have a DynamicClassLoader, in case we want to use add-libs from
-;; the add-lib3 branch of clojure.tools.deps.alpha (to) load new libraries at runtime
-;;
-;(try
-; (->> (Thread/currentThread)
-;      (.getContextClassLoader)
-;      (clojure.lang.DynamicClassLoader.)
-;      (.setContextClassLoader (Thread/currentThread)))
-; (catch Throwable t
-;   (println "Unable to establish a DynamicClassLoader!")
-;   (println (ex-message t))))
 
 ;;
 ;; Bridge/route all JUL log records to the SLF4J API.
