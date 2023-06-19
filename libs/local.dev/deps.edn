@@ -5,6 +5,6 @@
         com.bhauman/rebel-readline {:mvn/version "0.1.4" :exclusions [org.clojure/google-closure-library
                                                                       rewrite-cljs/rewrite-cljs]}
         fipp/fipp {:mvn/version "0.6.26"}
-        io.aviso/pretty {:mvn/version "1.4.2"}
+        io.aviso/pretty {:mvn/version "1.4.3"}
         nrepl/nrepl {:mvn/version "1.0.0"}
         refactor-nrepl/refactor-nrepl {:mvn/version "3.6.0"}}}
