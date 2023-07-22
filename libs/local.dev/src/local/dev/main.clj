@@ -1,9 +1,9 @@
 (ns local.dev.main
   (:require
    [cider.nrepl]
+   [clj-commons.ansi :as ansi]
    [clojure.java.io :as io]
    [fipp.edn :as fipp]
-   [io.aviso.ansi :as ansi]
    [nrepl.server :as nrepl]
    [rebel-readline.clojure.line-reader :as clj-line-reader]
    [rebel-readline.clojure.main :as rebel-main]
@@ -27,7 +27,7 @@
         port-file (io/file ".nrepl-port")]
     (.deleteOnExit port-file)
     (spit port-file port)
-    (println (ansi/green (str "nREPL client can be connected to port " port)))))
+    (println (ansi/compose [:green (format "nREPL client can be connected to port '%d'." port)]))))
 
 (defn -main
   [& _]
@@ -35,5 +35,5 @@
                        (Integer/parseInt)))
   (rebel-core/ensure-terminal
    (rebel-main/repl :print syntax-highlight-fipp))
-  (println (ansi/green "Goodbye!"))
+  (println (ansi/compose [:green "Goodbye!"]))
   (System/exit 0))

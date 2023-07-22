@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+rsync -vahP --exclude-from=excludes.txt --copy-unsafe-links $HOME/.clojure/ .
