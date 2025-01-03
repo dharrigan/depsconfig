@@ -1,18 +1,21 @@
+;;
+;;
+;;
 {:aliases
  {:base {:extra-deps {local-base/local-base {:local/root "/home/david/.clojure/libs/local.base"}}}
 
   :local-dev {:extra-deps {local-dev/local-dev {:local/root "/home/david/.clojure/libs/local.dev"}}
               :main-opts ["-m" "local.dev.main"]}
 
-  :install {:extra-deps {slipset/deps-deploy {:mvn/version "0.2.1"}}
+  :install {:extra-deps {slipset/deps-deploy {:mvn/version "0.2.2"}}
             :main-opts ["-m" "deps-deploy.deps-deploy" "install"]}
 
-  :deploy {:extra-deps {slipset/deps-deploy {:mvn/version "0.2.1"}}
+  :deploy {:extra-deps {slipset/deps-deploy {:mvn/version "0.2.2"}}
            :main-opts ["-m" "deps-deploy.deps-deploy" "deploy"]}
 
-  :antq {:replace-paths ["."]
-         :replace-deps {com.github.liquidz/antq {:mvn/version "2.5.1095"}
-                        org.slf4j/slf4j-simple {:mvn/version "2.0.7"}}
+  :antq {:replace-deps {com.github.liquidz/antq {:mvn/version "2.11.1260"}
+                        org.slf4j/slf4j-simple {:mvn/version "2.0.16"}}
+         :replace-paths ["."]
          :exec-fn antq.tool/outdated
          :exec-args {:download true
                      :force true
@@ -22,28 +25,19 @@
                      :upgrade true
                      :verbose true}}
 
-  :graph {:extra-deps {org.clojure/tools.deps.graph {:mvn/version "1.1.76"}}
-          :main-opts ["-m" "clojure.tools.deps.graph"]}
-
-  :reveal {:extra-deps {vlaaad/reveal {:mvn/version "1.3.280"}}
+  :reveal {:extra-deps {vlaaad/reveal {:mvn/version "1.3.284"}}
            :ns-default vlaaad.reveal
            :exec-fn repl}
 
-  :portal {:extra-deps {djblue/portal {:mvn/version "0.42.1"}}}
+  :playback {:extra-deps {com.github.gnl/playback {:mvn/version "0.5.4"}}}
+
+  :portal {:extra-deps {djblue/portal {:mvn/version "0.58.5"}}}
 
   :tab {:extra-deps {io.github.eerohele/tab {:git/url "https://github.com/eerohele/tab.git"
-                                             :git/sha "f8bca28dbff8a49658150643cdd7a809e789c2ce"}}}
+                                             :git/sha "8dd19ade5714f243efaa11bdf74eebadf0be0f52"}}}
 
-  :deps-new {:extra-deps {com.github.seancorfield/deps-new {:git/tag "v0.5.2"
-                                                            :git/sha "253f32af67a87bc4f6d7f60e2a7353ca220a9d81"}
-                          clj-template/clj-template {:local/root "/home/david/development/clojure/clj-template"}}
-             :exec-fn org.corfield.new/create
-             :exec-args {:template "online.harrigan/clj-template"
-                         :overwrite :delete
-                         :main "main"}}
-
-  :flow-storm {:extra-deps {com.github.jpmonettas/flow-storm-dbg {:mvn/version "3.6.10"}
-                            com.github.jpmonettas/flow-storm-inst {:mvn/version "3.6.10"}}}}
+  :flow-storm {:extra-deps {com.github.flow-storm/flow-storm-dbg {:mvn/version "4.1.0"}
+                            com.github.flow-storm/flow-storm-inst {:mvn/version "4.1.0"}}}}
 
  :mvn/repos {"central" {:url "https://nexus.harrigan.online/repository/maven-public"}
              "clojars" {:url "https://nexus.harrigan.online/repository/maven-public"}

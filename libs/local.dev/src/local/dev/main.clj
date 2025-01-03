@@ -33,7 +33,6 @@
   [& _]
   (start-nrepl (some-> (System/getenv "NREPL_PORT")
                        (Integer/parseInt)))
-  (rebel-core/ensure-terminal
-   (rebel-main/repl :print syntax-highlight-fipp))
+  (rebel-core/ensure-terminal (rebel-main/repl :print syntax-highlight-fipp))
   (println (ansi/compose [:green "Goodbye!"]))
   (System/exit 0))

@@ -2,17 +2,18 @@
 # And awayyyy we go!
 #
 
-set dotenv-load := true
-set positional-arguments := true
+set dotenv-load
+set positional-arguments
+set quiet
 
 # List all recipes (_ == hidden recipe)
 _default:
-    @just --list
+    just --list
 
 # Cat the Justfile
-@cat:
+cat:
     just --dump
 
 # Upgrade dependencies
-@deps:
+deps:
     clojure -X:antq
