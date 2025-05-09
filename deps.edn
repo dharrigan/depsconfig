@@ -13,8 +13,8 @@
   :deploy {:extra-deps {slipset/deps-deploy {:mvn/version "0.2.2"}}
            :main-opts ["-m" "deps-deploy.deps-deploy" "deploy"]}
 
-  :antq {:replace-deps {com.github.liquidz/antq {:mvn/version "2.11.1260"}
-                        org.slf4j/slf4j-simple {:mvn/version "2.0.16"}}
+  :antq {:replace-deps {com.github.liquidz/antq {:mvn/version "2.11.1276"}
+                        org.slf4j/slf4j-simple {:mvn/version "2.0.17"}}
          :replace-paths ["."]
          :exec-fn antq.tool/outdated
          :exec-args {:download true
@@ -31,13 +31,13 @@
 
   :playback {:extra-deps {com.github.gnl/playback {:mvn/version "0.5.4"}}}
 
-  :portal {:extra-deps {djblue/portal {:mvn/version "0.58.5"}}}
+  :portal {:extra-deps {djblue/portal {:mvn/version "0.59.0"}}}
 
   :tab {:extra-deps {io.github.eerohele/tab {:git/url "https://github.com/eerohele/tab.git"
                                              :git/sha "8dd19ade5714f243efaa11bdf74eebadf0be0f52"}}}
 
-  :flow-storm {:extra-deps {com.github.flow-storm/flow-storm-dbg {:mvn/version "4.1.0"}
-                            com.github.flow-storm/flow-storm-inst {:mvn/version "4.1.0"}}}}
+  :flow-storm {:extra-deps {com.github.flow-storm/flow-storm-dbg {:mvn/version "4.4.1"}
+                            com.github.flow-storm/flow-storm-inst {:mvn/version "4.4.1"}}}}
 
  :mvn/repos {"central" {:url "https://nexus.harrigan.online/repository/maven-public"}
              "clojars" {:url "https://nexus.harrigan.online/repository/maven-public"}
